@@ -1,0 +1,945 @@
+/* ---------- Tokens (PRD §4.4) ---------- */
+:root {
+  --navy: #0B1E3A;
+  --accent: #1ED6EE;   /* fills, labels, CTA background only; never text on white */
+  --light: #F4F7FA;
+  --white: #FFFFFF;
+
+  --canvas: 1440px;
+  --gutter: 64px;
+  --radius: 16px;
+  --pill: 999px;
+
+  --font: "Manrope", system-ui, sans-serif;
+}
+
+/* ---------- Base + canvas (M7: 1440 design, fluid below) ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--navy);
+  color: var(--navy);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+img {
+  display: block;
+}
+
+/* Bands span the full window; .canvas holds content at 1440 */
+.band {
+  width: 100%;
+}
+
+.band--navy {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.band--light {
+  background: var(--light);
+  color: var(--navy);
+}
+
+.canvas {
+  width: 100%;
+  max-width: var(--canvas);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ---------- M1: Navigation ---------- */
+.nav {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  height: 108px;
+}
+
+.nav__logo {
+  width: auto;
+  height: 78px;
+}
+
+.nav .cta {
+  justify-self: end;
+}
+
+.nav__links {
+  display: flex;
+  gap: 4px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--pill);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.nav__link {
+  display: block;
+  padding: 10px 22px;
+  border-radius: var(--pill);
+  color: var(--white);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
+}
+
+.nav__link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  text-decoration-line: underline;
+}
+
+/* Pill CTA with arrow (shared by nav and hero) */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 6px 6px 6px 24px;
+  border-radius: var(--pill);
+  background: var(--accent);
+  color: var(--navy);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.cta__arrow {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--pill);
+  background: var(--navy);
+  color: var(--white);
+  font-size: 18px;
+  line-height: 1;
+}
+
+.cta:hover {
+  background: var(--white);
+}
+
+/* ---------- M2: Hero ---------- */
+.hero {
+  padding: 56px 0 72px;
+}
+
+.hero__grid {
+  display: grid;
+  grid-template-columns: minmax(300px, 440px) minmax(0, 1fr);
+  gap: 48px;
+  align-items: center;
+}
+
+.hero__copy {
+  max-width: 440px;
+}
+
+.hero__title {
+  margin: 0;
+  color: var(--white);
+  font-size: clamp(36px, 3.4vw, 48px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.hero__sub {
+  margin: 24px 0 32px;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.hero__media {
+  position: relative;
+  margin: 0;
+}
+
+/* The frame has the image's exact ratio, so hotspot percentages map onto
+   the same point of the render at every width. */
+.hero__frame {
+  position: relative;
+  aspect-ratio: 1600 / 1161;
+  border-radius: var(--radius);
+  background: var(--navy);
+}
+
+.hero__image {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius);
+  object-fit: cover;
+}
+
+.hero__caption {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+}
+
+/* Callout labels. Each .hotspot box sits exactly on its part (percent of the
+   frame); the line runs up from the dot and the label sits on top of it.
+   Positions are tied to the current assets/hero.webp crop (BSF_prototype_image2.png
+   cropped to 2304x1672). If the image or crop changes, re-measure them. */
+.hotspots {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hotspot {
+  position: absolute;
+  width: 0;
+  height: 0;
+  --len: 56px;
+}
+
+.hotspot--spray  { left: 68.5%; top: 19.6%; --len: 64px; }   /* right fan mister outlet */
+.hotspot--camera { left: 41%;   top: 59.1%; }                /* deck camera */
+.hotspot--tablet { left: 84.5%; top: 88.9%; --len: 80px; }   /* tablet in hand */
+
+.hotspot__dot {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  width: 16px;
+  height: 16px;
+  border: 3px solid var(--white);
+  border-radius: var(--pill);
+  background: var(--accent);
+}
+
+.hotspot__line {
+  position: absolute;
+  bottom: 8px;
+  left: -1px;
+  width: 2px;
+  height: calc(var(--len) - 8px);
+  background: var(--accent);
+}
+
+.hotspot__label {
+  position: absolute;
+  bottom: var(--len);
+  left: -22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: max-content;
+  max-width: 250px;
+  padding: 9px 16px 9px 18px;
+  border: 1px solid rgba(30, 214, 238, 0.6);
+  border-radius: 20px;
+  background: rgba(11, 30, 58, 0.9);
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.hotspot__label::before {   /* marker lines up with the connector */
+  content: "";
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--pill);
+  background: var(--accent);
+}
+
+/* Labels that sit to the left of their dot */
+.hotspot--end .hotspot__label {
+  left: auto;
+  right: -22px;
+  flex-direction: row-reverse;
+  padding: 9px 18px 9px 16px;
+  text-align: right;
+}
+
+/* Fluid range: below 1100px the two columns get too narrow for the labels,
+   so the copy sits above a full-width image. (Mobile, <= 900px, is step 5.) */
+@media (max-width: 1100px) {
+  .hero__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+  }
+
+  .hero__copy {
+    max-width: 640px;
+  }
+}
+
+/* "Concept render" tag: shared by the hero and every image showing the machine */
+.tag {
+  margin: 0;
+  padding: 6px 14px;
+  border-radius: var(--pill);
+  background: rgba(11, 30, 58, 0.75);
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.media__tag {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+}
+
+/* ---------- Section heading row (Paulvante rhythm) ---------- */
+.section {
+  padding: 120px 0;
+}
+
+.section__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 64px;
+  margin-bottom: 56px;
+}
+
+.section__title {
+  margin: 0;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.section__desc {
+  max-width: 400px;
+  margin: 0;
+  color: rgba(11, 30, 58, 0.78);
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: right;
+}
+
+/* ---------- M3: Services ---------- */
+/* Bento (v1.3 §4.7): row 1 = Automate (2 of 3 columns) + Detect;
+   row 2 = Monitor across the full width, schematic beside the text. */
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pillar {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;         /* media takes the card's top corners */
+  border: 1px solid rgba(11, 30, 58, 0.08);
+  border-radius: var(--radius);
+  background: var(--white);
+}
+
+.pillar--wide {
+  grid-column: span 2;
+}
+
+.pillar--full {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+}
+
+.pillar__media {
+  position: relative;
+  height: 480px;
+}
+
+.pillar__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pillar__text {
+  padding: 28px 32px 40px;
+}
+
+.pillar--full .pillar__text {
+  align-self: center;
+  max-width: 460px;
+  padding: 48px;
+}
+
+/* ---------- Field-map schematic (v1.3 §4.6) ----------
+   Top-down view of crop rows. Words: the title and the three legend labels
+   only; row labels are letters. Colours: shades of accent and navy only. */
+.pillar__media--monitor {
+  display: grid;
+  place-items: center;
+  height: auto;
+  min-height: 360px;
+  padding: 40px;
+  background: var(--navy);
+}
+
+.field {
+  --spray: var(--accent);
+  --weather: rgba(30, 214, 238, 0.35);
+  --checks: #3B5A8A;           /* lighter shade of --navy */
+  --bed: #E9EEF4;
+  width: 100%;
+  max-width: 520px;
+  padding: 24px 28px 26px;
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--navy);
+}
+
+.field__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 18px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.field__title::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: var(--pill);
+  background: var(--accent);
+}
+
+.field__rows {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.field__row {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  align-items: center;
+  gap: 10px;
+}
+
+.field__letter {
+  color: rgba(11, 30, 58, 0.78);
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* A bed: a row of plants seen from above (dot texture), tinted by its legend colour */
+.field__bed {
+  height: 16px;
+  border-radius: var(--pill);
+  background:
+    radial-gradient(circle, rgba(11, 30, 58, 0.22) 2px, transparent 2.5px) 0 50% / 14px 14px repeat-x,
+    var(--bed);
+}
+
+.field__row--spray   .field__bed { background-color: var(--spray); }
+.field__row--weather .field__bed { background-color: var(--weather); }
+.field__row--checks  .field__bed { background-color: var(--checks); }
+.field__row--checks  .field__bed { background-image: radial-gradient(circle, rgba(255, 255, 255, 0.35) 2px, transparent 2.5px); }
+
+.field__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin: 18px 0 0;
+  padding: 16px 0 0;
+  border-top: 1px solid rgba(11, 30, 58, 0.08);
+  list-style: none;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.field__key {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.field__key::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+}
+
+.field__key--spray::before   { background: var(--spray); }
+.field__key--weather::before { background: var(--weather); }
+.field__key--checks::before  { background: var(--checks); }
+
+.pillar__name {             /* accent fill, navy text: never accent text on white */
+  display: inline-block;
+  margin: 0;
+  padding: 6px 14px;
+  border-radius: var(--pill);
+  background: var(--accent);
+  color: var(--navy);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.pillar__line {
+  margin: 24px 0 14px;
+  color: var(--navy);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.pillar__body {
+  margin: 0;
+  color: rgba(11, 30, 58, 0.78);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+/* Section heading row on a navy band */
+.band--navy .section__desc {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* ---------- M10: Video row (last row of the Services band) ----------
+   The wrapper ships with the hidden attribute until Farmotic's written OK. */
+[hidden] {
+  display: none !important;
+}
+
+.inaction {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);   /* mirrors the Monitor row */
+  align-items: center;
+  overflow: hidden;
+  margin-top: 24px;
+  border: 1px solid rgba(11, 30, 58, 0.08);
+  border-radius: var(--radius);
+  background: var(--white);
+}
+
+.inaction__text {
+  max-width: 460px;
+  padding: 48px;
+}
+
+.inaction__title {
+  margin: 0;
+  color: var(--navy);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.inaction__desc {
+  margin: 16px 0 0;
+  color: rgba(11, 30, 58, 0.78);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.inaction__credit {
+  margin: 12px 0 0;
+  color: rgba(11, 30, 58, 0.78);
+  font-size: 14px;
+}
+
+.inaction__media {
+  display: grid;
+  place-items: center;
+  align-self: stretch;
+  padding: 40px;
+  background: var(--navy);
+}
+
+.inaction__video,
+.inaction__poster {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius);
+  object-fit: cover;
+  background: var(--navy);
+}
+
+.inaction__poster {
+  display: none;
+}
+
+/* Reduced motion: no moving video, show the still instead */
+@media (prefers-reduced-motion: reduce) {
+  .inaction__video  { display: none; }
+  .inaction__poster { display: block; }
+}
+
+/* ---------- M4: About ---------- */
+.about__body {
+  max-width: 760px;
+  margin: 0 0 56px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 22px;
+  line-height: 1.6;
+}
+
+.about__pair {
+  display: grid;
+  grid-template-columns: 800fr 488fr;
+  gap: 24px;
+}
+
+.about__media {
+  position: relative;
+  margin: 0;
+}
+
+.about__media img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto 800 / 560;
+  border-radius: var(--radius);
+  object-fit: cover;
+}
+
+/* ---------- M5: Contact (also the footer) ---------- */
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr);
+  margin: 0;
+  border: 1px solid rgba(11, 30, 58, 0.08);
+  border-radius: var(--radius);
+  background: var(--white);
+  font-style: normal;
+}
+
+.contact__group {
+  display: grid;
+  align-content: start;
+  gap: 28px;
+  padding: 36px 32px;
+}
+
+.contact__group + .contact__group {
+  border-left: 1px solid rgba(11, 30, 58, 0.08);
+}
+
+.contact__label {
+  margin: 0 0 10px;
+  color: rgba(11, 30, 58, 0.78);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.contact__value {
+  margin: 0;
+  color: var(--navy);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.contact__value + .contact__value {
+  margin-top: 6px;
+}
+
+/* Always underlined so they read as links; no hover change (S1).
+   Navy, not cyan: cyan is too faint on the light band. */
+.contact__link {
+  color: var(--navy);
+  text-decoration: underline;
+  text-decoration-color: var(--navy);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+}
+
+/* The global cyan focus ring disappears on the light band, so use navy here */
+.contact__link:focus-visible {
+  outline: 2px solid var(--navy);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* ---------- S4: Scroll reveal ----------
+   CSS only, progressive enhancement. Nav and hero are never animated.
+   Without scroll-timeline support, or with reduced motion on, none of this
+   applies and everything is simply visible. The range ends at "entry 100%",
+   i.e. once an element is fully on screen it is at full opacity, so content
+   at the bottom of the page can't get stuck mid-fade. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .section__head,
+    .pillar,
+    .about__body,
+    .about__media,
+    .inaction,
+    .contact {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+
+    @keyframes reveal {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+}
+
+/* ---------- M7: Mobile (<= 900px): single column ---------- */
+@media (max-width: 900px) {
+  :root {
+    --gutter: 20px;
+  }
+
+  /* Nav: logo and CTA only (no hamburger, no JS) */
+  .nav {
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    height: 80px;
+  }
+
+  .nav__logo {
+    height: 56px;
+  }
+
+  .nav__links {
+    display: none;
+  }
+
+  .cta {
+    min-height: 48px;
+    font-size: 16px;
+  }
+
+  /* Hero: image -> H1 / subhead / CTA -> the three labels as a plain list.
+     The figure and frame dissolve (display: contents) so their children can
+     be reordered alongside the copy. */
+  .hero {
+    padding: 8px 0 56px;
+  }
+
+  .hero__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .hero__media,
+  .hero__frame {
+    display: contents;
+  }
+
+  .hero__image {
+    order: 1;
+    height: auto;
+    aspect-ratio: 1600 / 1161;
+  }
+
+  .hero__caption {
+    order: 2;
+    position: relative;
+    bottom: auto;
+    left: auto;
+    align-self: flex-start;
+    margin: -44px 0 0 12px;     /* sits over the image's bottom-left corner */
+  }
+
+  .hero__copy {
+    order: 3;
+    max-width: none;
+    margin-top: 32px;
+  }
+
+  .hero__title {
+    font-size: 34px;
+  }
+
+  .hero__sub {
+    margin: 16px 0 28px;
+  }
+
+  .hotspots {
+    order: 4;
+    display: grid;
+    gap: 10px;
+    margin-top: 32px;
+  }
+
+  .hotspot,
+  .hotspot--end {
+    position: static;
+    width: auto;
+    height: auto;
+  }
+
+  .hotspot__dot,
+  .hotspot__line {
+    display: none;
+  }
+
+  .hotspot__label,
+  .hotspot--end .hotspot__label {
+    position: static;
+    flex-direction: row;
+    width: auto;
+    max-width: none;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 16px;
+    text-align: left;
+  }
+
+  /* Section heads stack */
+  .section {
+    padding: 64px 0;
+  }
+
+  .section__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .section__title {
+    font-size: 34px;
+  }
+
+  .section__desc {
+    max-width: none;
+    text-align: left;
+  }
+
+  /* Services: Automate, Detect, Monitor, then the video row */
+  .pillars {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .pillar--wide {
+    grid-column: auto;
+  }
+
+  .pillar--full {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pillar__media {
+    height: 260px;
+  }
+
+  .pillar__media--monitor {
+    height: auto;
+    min-height: 0;
+    padding: 24px 20px;
+  }
+
+  .field {
+    padding: 20px;
+  }
+
+  .pillar__text,
+  .pillar--full .pillar__text {
+    max-width: none;
+    padding: 24px 24px 32px;
+  }
+
+  .pillar__line {
+    font-size: 22px;
+  }
+
+  .inaction {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 20px;
+  }
+
+  .inaction__text {
+    max-width: none;
+    padding: 28px 24px;
+  }
+
+  .inaction__title {
+    font-size: 28px;
+  }
+
+  .inaction__credit {
+    font-size: 16px;
+  }
+
+  .inaction__media {
+    padding: 24px 20px;
+  }
+
+  /* About: pair stacks */
+  .about__body {
+    margin-bottom: 32px;
+    font-size: 18px;
+  }
+
+  .about__pair {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  /* Contact: one column; links are full 44px+ tap targets */
+  .contact {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contact__group {
+    gap: 24px;
+    padding: 28px 24px;
+  }
+
+  .contact__group + .contact__group {
+    border-top: 1px solid rgba(11, 30, 58, 0.08);
+    border-left: 0;
+  }
+
+  .contact__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}

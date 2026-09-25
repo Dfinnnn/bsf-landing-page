@@ -1,0 +1,17 @@
+# Raw source videos (the page uses the trimmed assets/in-action.mp4)
+assets/Farmo V12 by Farmotic.mp4
+assets/FARMO V8 Ginger Plantation 2.mp4
+
+# Excluded images and frame dumps
+_unused/
+reference/frames/
+
+# Files over 50 MB. Git can't ignore by size, so each one is listed by name.
+# Before committing a new large file, check with:
+#   find . -type f -size +50M -not -path "./.git/*"
+# (Currently the only one is the V8 source video above.)
+
+# OS / editor clutter
+Thumbs.db
+desktop.ini
+.DS_Store
