@@ -28,3 +28,15 @@
 ## Environment
 
 Windows, PowerShell, VS Code. Preview with `.claude/launch.json` (python http.server).
+
+## Deployment (live)
+
+- **Live site:** https://www.blueskyfarm.site (Vercel). The non-www domain also works.
+- **Repo:** github.com/Dfinnnn/bsf-landing-page. Vercel deploys **only the `site/` folder**.
+- **Workflow:** edit the root `index.html`, `styles.css` and `assets/` → run `build-site.py` to refresh `site/` → commit → push. Vercel redeploys automatically on push.
+- **Never commit:**
+  - raw source videos
+  - `_unused/`
+  - `reference/frames/`
+  - any contract or MoA document
+- Before pushing, show me `git status` and the list of changed files.

@@ -1,6 +1,6 @@
 # PRD — Blue Sky Farms Landing Page (Public Launch)
 
-**Version:** 2.2 (Farmotic relationship resolved)
+**Version:** 2.3 (company details from the MoA, new phone contacts, deployment live)
 **Date:** 2026-09-25
 
 **What changed from v1.3:** the page is now a **public site at `blueskyfarm.site`**, not an internal demo. The hero switches to the real (wheeled) machine, there is a new headline, a video section, real contact details, a mobile layout, and launch basics.
@@ -47,7 +47,10 @@ A visitor on desktop or phone understands within 5 seconds that **Blue Sky Farms
 | 26 | Video = FARMO V8 Ginger Plantation 2, 5.0–15.0s, centre-cropped to 4:5 (720×900). V12 is rejected (burned-in performance captions and an editor watermark) |
 | 27 | The nav CTA becomes an external link to the EduFarm dashboard login. The hero CTA stays "Talk to our team" → `#contact` |
 | 28 | The OG share image stays JPG (social platforms render JPG reliably). The WebP rule applies to on-page images only |
-| 29 | BSF co-builds and modifies the FARMO machines with Farmotic under an MOA. "Builds" in the subhead is accurate; copy is unchanged |
+| 29 | BSF co-builds and modifies the FARMO machines with Farmotic. "Builds" in the subhead is accurate; copy is unchanged |
+| 30 | The company name, registration number and business address are taken from the MoA (clause 1.1). The location is now Kepong, Kuala Lumpur (replacing Puchong) |
+| 31 | Two named phone contacts: Kyle and Sai |
+| 32 | Live at blueskyfarm.site via Vercel, deployed from the `site/` folder of the GitHub repo |
 
 ---
 
@@ -94,19 +97,20 @@ The labels are the **only** place the hero says "spraying". They must stay alway
 | Descriptor | Our machine at work in the field. |
 | Credit | Footage: Blue Sky Farms × Farmotic |
 
-**About.** The copy is unchanged from v1.3 (approved). The real-photo caption reads: "Our current prototype".
+**About.** The copy is unchanged from v1.3 (approved), except "based in Puchong, Selangor" becomes **"based in Kepong, Kuala Lumpur"**. The real-photo caption reads: "Our current prototype".
 
 **Contact** (owner-supplied, real)
 
-- **Name:** Blue Sky Farms
-- **Address:** 21, Jalan SP 3/4, Taman Saujana Puchong, 47100 Puchong, Selangor
-- **Phone:** +6012-283 2682
+- **Company:** BSF Technology Sdn Bhd · Company No. 202501032497 (1633908-U)
+- **Address:** No. 42-1, Jalan Prima 2, Pusat Niaga Metro Prima Kepong, 52100 Kuala Lumpur, Malaysia
+- **Phone (Kyle):** +60 17-802 6800 → `tel:+60178026800`
+- **Phone (Sai):** +60 10-293 3297 → `tel:+60102933297`
 - **Email:** blueskyfarms@gmail.com
 - **Office hours:**
   - Monday to Friday, 9:00 am to 6:00 pm
   - Saturday, 9:00 am to 12 noon
 
-The phone is a `tel:` link and the email is a `mailto:` link. Both are allowed now that the site is public; the "no links" rule was demo-only.
+Each phone number is a `tel:` link and the email is a `mailto:` link. Both are allowed now that the site is public; the "no links" rule was demo-only.
 
 ### 4.3 Banned in all copy
 
@@ -207,11 +211,11 @@ Desktop checks run at **1440 × 900**; mobile checks at **375 × 812**; both at 
 
 ### M4 — About
 - [ ] `Original_Image.jpg` is shown with the caption "Our current prototype" and no "Concept render" tag.
-- [ ] The about copy is 2–3 sentences and mentions Puchong, Selangor.
+- [ ] The about copy is 2–3 sentences and says "based in Kepong, Kuala Lumpur". No mention of Puchong anywhere on the page.
 
 ### M5 — Contact
 - [ ] All details match §4.2 exactly.
-- [ ] The phone is a `tel:` link and the email is a `mailto:` link.
+- [ ] Both phone numbers are `tel:` links, each labelled with its contact's name (Kyle, Sai). The email is a `mailto:` link.
 - [ ] A search of the source for `[` finds no bracket placeholders.
 - [ ] No form.
 
@@ -292,9 +296,10 @@ The following are out of scope:
 - [ ] Namecheap domain contacts verified (**deadline: within 14 days of 2026-09-25**)
 - [ ] Farmotic's written OK received, covering both the video and naming Farmotic in the credit line (check the MOA's publicity terms); then remove `hidden` from `#in-action`
 - [ ] Boss confirms: AI render images may be shown publicly with the "Concept render" caption
-- [ ] Boss confirms: technology enquiries should go to +6012-283 2682 and blueskyfarms@gmail.com (the same contacts as the land group)
+- [ ] Kyle and Sai agree to their names and numbers being on a public site
+- [ ] The MoA PDF is never placed in the project folder or the repo (clause 10, confidentiality)
 - [ ] Glance test passed on desktop and mobile
-- [ ] Hosting set up and the domain connected (guided separately)
+- [x] Hosting set up and the domain connected
 
 ---
 

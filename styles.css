@@ -677,6 +677,19 @@ img {
   margin-top: 6px;
 }
 
+/* Two named phone contacts: name column, then the number */
+.contact__person {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.contact__name {
+  min-width: 40px;
+  color: rgba(11, 30, 58, 0.78);
+  font-weight: 500;
+}
+
 /* Always underlined so they read as links; no hover change (S1).
    Navy, not cyan: cyan is too faint on the light band. */
 .contact__link {
@@ -941,5 +954,13 @@ img {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
+  }
+
+  .contact__person {
+    align-items: center;
+  }
+
+  .contact__value + .contact__person {
+    margin-top: 0;
   }
 }
