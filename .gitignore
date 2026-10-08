@@ -2,6 +2,25 @@
 assets/Farmo V12 by Farmotic.mp4
 assets/FARMO V8 Ginger Plantation 2.mp4
 
+# Business documents (contracts, decks, MoA) never go in the repo
+*.pdf
+
+# Internal planning docs: kept on disk, not tracked (repo is public, PRD §8 step 0)
+prd.md
+prd_v*_archive.md
+CLAUDE.md
+design-brief*.md
+.claude/
+
+# Visual references (inspiration only, not part of the site)
+reference/
+
+# Not for the page: deck poster, low-res still, raw source for the hover video
+reference/bsfposter.jpeg
+assets/angle2_robot.png
+assets/angle2-source.mp4
+assets/land-aerial.jpg
+
 # Excluded images and frame dumps
 _unused/
 reference/frames/
