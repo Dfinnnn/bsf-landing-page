@@ -539,9 +539,9 @@ img {
 
 .inaction {
   display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);   /* mirrors the Monitor row */
-  align-items: center;
-  overflow: hidden;
+  grid-template-columns: minmax(0, 1fr) auto;   /* text takes what the video leaves */
+  align-items: stretch;
+  overflow: hidden;   /* card radius clips the video's outer corners */
   margin-top: 24px;
   border: 1px solid rgba(11, 30, 58, 0.08);
   border-radius: var(--radius);
@@ -549,7 +549,8 @@ img {
 }
 
 .inaction__text {
-  max-width: 460px;
+  align-self: center;
+  max-width: 520px;
   padding: 48px;
 }
 
@@ -576,22 +577,18 @@ img {
   font-size: 14px;
 }
 
+/* The column is exactly the video: 4:5 at 600px tall (the cap), edge to edge */
 .inaction__media {
-  display: grid;
-  place-items: center;
-  align-self: stretch;
-  padding: 40px;
-  background: var(--navy);
+  display: block;
+  padding: 0;
 }
 
 .inaction__video,
 .inaction__poster {
   display: block;
-  width: 100%;
-  max-width: 360px;
-  height: auto;
+  width: auto;
+  height: 600px;
   aspect-ratio: 4 / 5;
-  border-radius: var(--radius);
   object-fit: cover;
   background: var(--navy);
 }
@@ -925,7 +922,13 @@ img {
   }
 
   .inaction__media {
-    padding: 24px 20px;
+    padding: 0;
+  }
+
+  .inaction__video,
+  .inaction__poster {
+    width: 100%;
+    height: auto;
   }
 
   /* About: pair stacks */
@@ -1091,8 +1094,7 @@ img {
 
 /* ---------- v3.0 band swaps (Solution navy, About light, Contact navy) ---------- */
 /* Navy panels inside white cards need to read against a navy band */
-.band--navy .pillar__media--monitor,
-.band--navy .inaction__media {
+.band--navy .pillar__media--monitor {
   background: #16305A;
 }
 
