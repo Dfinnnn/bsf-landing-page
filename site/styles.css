@@ -1355,3 +1355,23 @@ img {
   object-fit: contain;
   border-radius: 8px;
 }
+
+/* Stacked model cards beside a compact original poster. */
+.model-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 360px); gap: 48px; align-items: center; }
+.model-layout .model { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+.model-layout .model__card { display: grid; grid-template-columns: 56px minmax(0, 1fr); column-gap: 20px; padding: 24px; }
+.model-layout .model__icon { grid-column: 1; grid-row: 1 / 4; margin-bottom: 0; }
+.model-layout .model__name, .model-layout .model__line, .model-layout .model__body { grid-column: 2; }
+.model-layout .model__line { font-size: 21px; margin: 6px 0 8px; }
+.model-poster { margin: 0; width: 100%; max-width: 320px; justify-self: center; }
+.model-poster__title { margin: 0 0 16px; font-size: 19px; line-height: 1.4; color: var(--navy); }
+.model-poster a { display: block; text-decoration: none; }
+.model-poster img { width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(11,30,58,.12); box-shadow: 0 6px 20px rgba(11,30,58,.08); }
+.model-poster__link { display: block; margin-top: 12px; color: var(--navy); font-size: 14px; text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 900px) {
+  .model-layout { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+}
+@media (max-width: 480px) {
+  .model-layout .model__card { grid-template-columns: 44px minmax(0, 1fr); column-gap: 14px; padding: 20px; }
+  .model-layout .model__icon { width: 44px; height: 44px; }
+}
